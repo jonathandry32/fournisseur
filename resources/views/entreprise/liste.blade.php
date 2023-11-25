@@ -4,37 +4,49 @@
 <div class="col-lg-12 grid-margin stretch-card">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title">Liste des produits</h4>
+      <h4 class="card-title">Entreprises existantes</h4>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
             <tr>
               <th>
-                Fournisseur
+                Identifiant
               </th>
               <th>
-                Prix
+                Nom
               </th>
-              <th></th>
+              <th>
+                Email
+              </th>
+              <th>
+                Telephone
+              </th>
+              <th>
+                Adresse
+              </th>
             </tr>
           </thead>
           <tbody>
-            @forelse ($prixProduit as $p)
+            @forelse ($entreprise as $e)
             <tr>
               <td>
-                {{ $p->fournisseur->nom }}
+                {{ $e->idEntreprise }}
               </td>
               <td>
-                {{ $p->prix }}
+                {{ $e->nom }}
               </td>
               <td>
-                <a href="{{ route('produit.modifPrix', ['idProduit' => $p->idProduit,'idFournisseur' => $p->fournisseur->idFournisseur]) }}" class="btn btn-success">
-                  Modifier prix  
-                </a>
+                {{ $e->email }}
+              </td>
+              <td>
+                {{ $e->telephone }}
+              </td>
+              <td>
+                {{ $e->adresse }}
               </td>
             </tr>
             @empty
-              <p>aucun produit</p>
+              <p>aucune entreprise</p>
             @endforelse
 
           </tbody>
