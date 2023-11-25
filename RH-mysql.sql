@@ -1,3 +1,14 @@
+drop database fournisseur;
+create database fournisseur;
+use fournisseur;
+
+create table Users(
+  idUser int primary key auto_increment,
+  name varchar(50),
+  email varchar(50),
+  password varchar(255)
+) ENGINE = InnoDB;
+
 CREATE TABLE Entreprises (
     idEntreprise SERIAL PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,

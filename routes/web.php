@@ -14,6 +14,8 @@ use App\Http\Controllers\BonCommandeController;
 use App\Http\Controllers\DetailBonCommandeController;
 use App\Http\Controllers\fournisseurController;
 use App\Http\Controllers\produitController;
+use App\Http\Controllers\EntrepriseController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -129,13 +131,20 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('produit')->group(function() {
         Route::get('/nouveau',[produitController::class,'nouveau'])->name('produit.nouveau');
+        Route::get('/modifier',[produitController::class,'modifier'])->name('produit.modifier');
         Route::get('/liste',[produitController::class,'liste'])->name('produit.liste');
-        Route::get('/prixProduit/{idProduit}',[produitController::class,'prixProduit'])->name('produit.prixProduit');
-        Route::get('/listePrix/{idProduit}',[produitController::class,'listePrix'])->name('produit.listePrix');
-        Route::get('/modifPrix/{idProduit}/{idFournisseur}',[produitController::class,'modifPrix'])->name('produit.modifPrix');
-        Route::post('/inscrire',[produitController::class,'inscrire'])->name('produit.inscrire');
-        Route::post('/insererPrixProduit',[produitController::class,'insererPrixProduit'])->name('produit.insererPrixProduit');
-        Route::post('/updatePrixProduit',[produitController::class,'updatePrixProduit'])->name('produit.updatePrixProduit');
+        Route::post('/ajouter',[produitController::class,'ajouter'])->name('produit.ajouter');
+        Route::post('/update',[produitController::class,'update'])->name('produit.update');
+    });
+    Route::prefix('entreprise')->group(function() {
+        Route::get('/nouveau',[EntrepriseController::class,'nouveau'])->name('entreprise.nouveau');
+        Route::get('/liste',[EntrepriseController::class,'liste'])->name('entreprise.liste');
+        Route::post('/ajouter',[EntrepriseController::class,'ajouter'])->name('entreprise.ajouter');
+    });
+    Route::prefix('stock')->group(function() {
+        Route::get('/nouveau',[StockController::class,'nouveau'])->name('entreprise.nouveau');
+        Route::get('/liste',[StockController::class,'liste'])->name('entreprise.liste');
+        Route::post('/insertion',[StockController::class,'insertion'])->name('entreprise.insertion');
     });
     
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');

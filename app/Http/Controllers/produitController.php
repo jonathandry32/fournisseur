@@ -10,57 +10,30 @@ use App\Models\PrixProduit;
 class produitController extends Controller
 {
     public function liste() {
-        $produit = Produit::all();
+        $produit = (new Produit())->liste();
 
         return view('produit.liste', ['produit' => $produit]);
     }
 
-    public function nouveau()
-    {
+    public function nouveau() {
         return view('produit.nouveau');
     }
 
-    public function inscrire(Request $request)
+    public function modifier() {
+        $produit = Produit::where('idProduit',$idProduit)->get();
+
+        return view('produit.modifier', ['produit' => $produit]);
+    }
+
+    public function ajouter(Request $request)
     {
-        Produit::create([
-            'nom' => $request->nom,
-            'prix' => $request->prix
-        ]);
+        (new Produit())->insertion($request);
         return redirect()->route('produit.liste');  
     }
 
-    public function prixProduit($idProduit)
+    public function update(Request $request)
     {
-        $fournisseur = Fournisseur::all();
-
-        return view('produit.prixProduit', ['fournisseur' => $fournisseur,'idProduit' => $idProduit]); 
-    }
-
-    public function insererPrixProduit(Request $request)
-    {
-        PrixProduit::create([
-            'idProduit' => $request->idProduit,
-            'idFournisseur' => $request->idFournisseur,
-            'prix' => $request->prix
-        ]);
-        return redirect()->route('produit.liste');  
-    }
-
-    public function listePrix($idProduit) {
-        $prixProduit = PrixProduit::with('fournisseur')->where('idProduit',$idProduit)->get();
-
-        return view('produit.listePrix', ['prixProduit' => $prixProduit]);
-    }
-    
-    public function modifPrix($idProduit,$idFournisseur) {
-        $prixProduit = PrixProduit::where('idFournisseur',$idFournisseur)->where('idProduit',$idProduit)->get();
-
-        return view('produit.modifPrix', ['prixProduit' => $prixProduit]);
-    }
-
-    public function updatePrixProduit(Request $request)
-    {
-        PrixProduit::where('idProduit',$request->idProduit)->where('idFournisseur',$request->idFournisseur)->update(['prix'=>$request->prix]);
+        (new Produit())->update($request);
         return redirect()->route('produit.liste');  
     }
 }

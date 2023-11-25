@@ -4,7 +4,7 @@
 <div class="col-lg-12 grid-margin stretch-card">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title">Liste des produits</h4>
+      <h4 class="card-title">Historiques des mouvements de stock</h4>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
@@ -13,40 +13,46 @@
                 Identifiant
               </th>
               <th>
-                Nom
+                Produit
               </th>
               <th>
-                Unité
+                Quantité
               </th>
               <th>
-                Prix
+                Prix Unitaire
               </th>
-              <th></th>
+              <th>
+                Type
+              </th>
+              <th>
+                Date
+              </th>
             </tr>
           </thead>
           <tbody>
-            @forelse ($produit as $p)
+            @forelse ($stock as $s)
             <tr>
               <td>
-                {{ $p->idProduit }}
+                {{ $s->idStock }}
               </td>
               <td>
-                {{ $p->nom }}
+                {{ $s->produit->nom }}
               </td>
               <td>
-                {{ $p->unite }}
+                {{ $s->quantite }}
               </td>
               <td>
-                {{ $p->prix }}
+                {{ $s->prixUnitaire }}
               </td>
               <td>
-                <a href="{{ route('produit.modifier', ['idProduit' => $p->idProduit]) }}" class="btn btn-success">
-                  Modifier  
-                </a>
+                {{ $s->type }}
+              </td>
+              <td>
+                {{ $s->date }}
               </td>
             </tr>
             @empty
-              <p>aucun produit</p>
+              <p>aucun mouvement</p>
             @endforelse
 
           </tbody>
